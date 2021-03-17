@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\product;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -12,7 +12,7 @@ class ProductFactory extends Factory
      *
      * @var string
      */
-    protected $model = product::class;
+    protected $model = Product::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +22,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->product,
-            'uuid' => '',
-            'price' => '',
-            'current_quantity' => '',
+            'name' => $this->faker->realText($this->faker->numberBetween(10,10)),
+            'uuid' => $this->faker->uuid(),
+            'price' => $this->faker->randomFloat(2, 1.00, 1000.00),
+            'current_quantity' => $this->faker->numberBetween(0, 100)
         ];
     }
 }
