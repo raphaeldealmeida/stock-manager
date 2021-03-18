@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductCreateRequest $request, Product $product)
+    public function store(CreateProductRequest $request, Product $product)
     {
         $product->fill($request->only(['name', 'price', 'current_quantity']));
         $product->uuid = Str::uuid();
