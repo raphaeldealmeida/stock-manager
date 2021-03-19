@@ -1,5 +1,7 @@
 <template>
-    
+    <v-container>
+      ProductForm
+    </v-container>
 </template>
 
 <script>
