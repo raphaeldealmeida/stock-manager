@@ -30,18 +30,17 @@
                                 <v-row>
                                     <v-col
                                             cols="12"
-                                            sm="6"
-                                            md="4"
+
                                     >
                                         <v-text-field
                                                 v-model="editedItem.name"
                                                 label="Name"
                                         ></v-text-field>
                                     </v-col>
+                                </v-row>
+                                <v-row>
                                     <v-col
-                                            cols="12"
-                                            sm="6"
-                                            md="4"
+                                            cols="6"
                                     >
                                         <v-text-field
                                                 v-model="editedItem.price"
@@ -49,9 +48,7 @@
                                         ></v-text-field>
                                     </v-col>
                                     <v-col
-                                            cols="12"
-                                            sm="6"
-                                            md="4"
+                                            cols="6"
                                     >
                                         <v-text-field
                                                 v-model="editedItem.quantity"
@@ -139,6 +136,7 @@
                 },
                 dialog: false,
                 dialogDelete: false,
+                editedIndex: -1,
         }),
         watch: {
           dialog (val) {
@@ -150,17 +148,17 @@
         },
         methods: {
             editItem (item) {
-                this.editedIndex = this.desserts.indexOf(item)
+                this.editedIndex = this.products.indexOf(item)
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
             deleteItem (item) {
-                this.editedIndex = this.desserts.indexOf(item)
+                this.editedIndex = this.products.indexOf(item)
                 this.editedItem = Object.assign({}, item)
                 this.dialogDelete = true
             },
             deleteItemConfirm () {
-              this.desserts.splice(this.editedIndex, 1)
+              this.products.splice(this.editedIndex, 1)
               this.closeDelete()
             },
             close () {
@@ -179,7 +177,7 @@
             },
             save () {
               if (this.editedIndex > -1) {
-                Object.assign(this.desserts[this.editedIndex], this.editedItem)
+                Object.assign(this.products[this.editedIndex], this.editedItem)
               } else {
                 this.products.push(this.editedItem)
               }
