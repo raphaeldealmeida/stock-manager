@@ -17,6 +17,9 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/profile', function (Request $request){
         return $request->user();
     });
+    Route::delete('/logout', function (Request $request){
+        $request->user()->currentAccessToken()->delete();
+    });
 });
 
 Route::post('/sanctum/token', function (Request $request) {
@@ -25,6 +28,7 @@ Route::post('/sanctum/token', function (Request $request) {
         'password' => 'required',
         'device_name' => 'required',
     ]);
+
 
     $user = User::where('email', $request->email)->first();
 
