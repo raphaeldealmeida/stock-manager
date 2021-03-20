@@ -12,7 +12,7 @@
                         cols="12"
                     >
                         <v-text-field
-                            v-model="model.name" label="Name" clearable
+                            v-model="product.name" label="Name" clearable
                             :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -20,7 +20,7 @@
                         cols="6"
                     >
                         <v-text-field
-                            v-model="model.price" label="Price"
+                            v-model="product.price" label="Price"
                             prefix="$" type="number"
                             :rules="[rules.required]"
                         ></v-text-field>
@@ -29,7 +29,7 @@
                         cols="6"
                     >
                         <v-text-field
-                            type="number"  v-model="model.current_quantity"
+                            type="number"  v-model="product.current_quantity"
                             label="Quantity" :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -62,19 +62,8 @@
         props: {
             product: Object,
         },
-        mounted() {
-            if(this.product.name !== '') {
-                this.model = Object.assign({}, this.product)
-            }
-        },
         data: () => ({
             dialog: true,
-            model: {
-                id: '',
-                name: '',
-                price: '',
-                current_quantity: '',
-            },
             valid: false,
             rules: {
                 required: value => !!value || 'Required.',
@@ -85,16 +74,16 @@
                 this.valid = false
                 this.valid = this.$refs.form.validate()
                 if(this.valid){
-                    this.$emit('save', this.model)
-                    this.clear()
+                    this.$emit('save', this.product)
+                    this.clearCurrentProduct()
                 }
             },
             close (){
                 this.$emit('close')
-                this.clear()
+                this.clearCurrentProduct()
             },
-            clear(){
-                this.model = {id: '', name: '', price: '', current_quantity: ''}
+            clearCurrentProduct(){
+                this.product = {id: '', name: '', price: '', current_quantity: ''}
             },
         }
     }

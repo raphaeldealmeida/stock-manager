@@ -101,11 +101,10 @@
             async saveProduct (product) {
                 this.dialog = false
                 try {
-                    if(product.id != '') {
-                        await this.$store.dispatch('updateProduct', product);
-                    }else {
-                        await this.$store.dispatch('createProduct', product);
-                    }
+                    let action = (product.id != '')?  'updateProduct' : 'createProduct';
+
+                    await this.$store.dispatch(action, product);
+                    this.clearCurrentProduct()
                 } catch (error) {
                     this.error = error;
                     alert(error)
@@ -128,6 +127,9 @@
                     alert(error)
                 }
             },
+            clearCurrentProduct () {
+              this.currentProduct = { id: '',name: '',price: '',current_quantity: '',}
+            }
         },
     }
 </script>

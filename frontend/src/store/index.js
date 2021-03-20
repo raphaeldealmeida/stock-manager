@@ -24,12 +24,11 @@ export default new Vuex.Store({
                   state.products = products;
               },
               SET_PRODUCT(state, product) {
-                  if(product.id != ''){
-                      let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
-                      state.products[objIndex] = Object.assign({}, product)
-                  }else{
+                  let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
+                  if(objIndex == -1)
                       state.products.unshift(product);
-                  }
+                  else
+                      state.products[objIndex] = Object.assign({}, product)
               },
               DROP_PRODUCT(state, product) {
                   let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
