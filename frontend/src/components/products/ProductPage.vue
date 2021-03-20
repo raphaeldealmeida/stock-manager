@@ -17,6 +17,20 @@
                 </v-card>
             </v-dialog>
             <v-dialog
+                v-model="dialogShow"
+                persistent
+                max-width="600px"
+            >
+                <v-card>
+                    <v-card-text>
+                        <ProductDetails :product="currentProduct" :quantityHistory="quantityHistory" ></ProductDetails>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn @click="closeShowItem">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog
                 v-model="confirm"
                 persistent
                 max-width="600px"
@@ -48,7 +62,6 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-
         </v-row>
         <v-card>
             <v-card-title>
@@ -65,7 +78,8 @@
                     </v-btn>
                 </v-row>
               <p v-if="error" style="color: red">{{ error }}</p>
-              <ProductTable :products="products" v-on:edit-item="editItem" v-on:delete-item="deleteItem"></ProductTable>
+              <ProductTable :products="products" v-on:edit-item="editItem" v-on:delete-item="deleteItem"
+                            v-on:show-item="showItem"></ProductTable>
             </v-card-text>
         </v-card>
     </v-container>
@@ -74,14 +88,17 @@
 <script>
     import ProductTable from "./ProductTable";
     import ProductForm from "@/components/products/ProductForm";
+    import ProductDetails from "@/components/products/ProductDetails";
     export default {
-        components: {ProductForm, ProductTable},
+        components: {ProductDetails, ProductForm, ProductTable},
         name: "ProductPage",
         data: () => ({
-          error: false,
-          products: [],
-          dialog: false,
+            error: false,
+            products: [],
+            dialog: false,
+            dialogShow:false,
             confirm: false,
+            quantityHistory: [],
             currentProduct: {
                 id: '',
                 name: '',
@@ -98,6 +115,21 @@
           }
         },
         methods: {
+            closeShowItem(){
+                this.clearCurrentProduct();
+                this.clearHistory();
+                this.dialogShow = false
+            },
+            async showItem(product) {
+                try {
+                    await this.$store.dispatch('getHistory', product);
+                    this.quantityHistory = this.$store.getters.historic;
+                    this.currentProduct = product
+                    this.dialogShow = true
+                } catch (error) {
+                    this.error = error;
+                }
+            },
             async saveProduct (product) {
                 this.dialog = false
                 try {
@@ -129,6 +161,9 @@
             },
             clearCurrentProduct () {
               this.currentProduct = { id: '',name: '',price: '',current_quantity: '',}
+            },
+            clearHistory () {
+              this.quantityHistory = [];
             }
         },
     }

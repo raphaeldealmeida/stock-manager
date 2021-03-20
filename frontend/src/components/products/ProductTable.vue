@@ -7,14 +7,19 @@
     >
         <template v-slot:item.actions="{ item }">
             <v-icon
-                    small
-                    class="mr-2"
+                class="mr-4"
+                @click="$emit('show-item', item)"
+            >
+                mdi-eye
+            </v-icon>
+            <v-icon
+                    class="mr-4"
                     @click="$emit('edit-item', item)"
             >
                 mdi-pencil
             </v-icon>
             <v-icon
-                    small
+                    class="mr-4"
                     @click="$emit('delete-item', item)"
             >
                 mdi-delete

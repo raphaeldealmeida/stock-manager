@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Historic;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -57,7 +58,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->only(['name', 'price', 'current_quantity']));
+        $data = $request->only(['name', 'price', 'current_quantity']);
+        if ($data['current_quantity'] != $product->current_quantity){
+            Historic::create([
+                'product_id' => $product->id,
+                'quantity' => $product->current_quantity,
+                'quantity_at' => $product->updated_at,
+            ]);
+        }
+        $product->update($data);
+        $product->update();
         $product->save();
 
         return $product;
@@ -73,5 +83,9 @@ class ProductController extends Controller
     {
         $product->delete();
         return response()->noContent();
+    }
+
+    public function historicByProduct(Request $request, $id){
+        return Historic::where('product_id', $id)->orderByDesc('quantity_at')->get();
     }
 }

@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Historic extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'name', 'price', 'current_quantity',
+        'product_id', 'quantity', 'quantity_at',
     ];
 
-    public function historics()
-    {
-        return $this->hasMany(Historic::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 }

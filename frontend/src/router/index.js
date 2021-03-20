@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginForm from "@/components/session/LoginForm";
 import ProductPage from "@/components/products/ProductPage";
-import ProductDetails from "@/components/products/ProductDetails";
 import ProfilePage from "@/components/session/ProfilePage";
 
 import middleware from "@/router/middleware"
@@ -20,12 +19,6 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: ProductPage,
-    beforeEnter: middleware
-  },
-  {
-    path: '/products/:id',
-    name: 'ProductsDetails',
-    component: ProductDetails,
     beforeEnter: middleware
   },
   {

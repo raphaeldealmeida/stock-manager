@@ -14,6 +14,7 @@ Route::fallback(function(){
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::resource('products', ProductController::class)->only('index', 'store', 'update', 'show', 'destroy');
+    Route::get('products/{id}/historic', ['as' => 'products.historic', 'uses' => 'App\Http\Controllers\ProductController@historicByProduct']);
     Route::get('/profile', function (Request $request){
         return $request->user();
     });

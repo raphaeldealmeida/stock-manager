@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('name', '60')->nullable(false);
-            $table->float('price')->nullable(false)->unsigned();
+            $table->float('price', 8,2)->nullable(false)->unsigned();
             $table->float('current_quantity')->nullable(false)->unsigned();
             $table->timestamps();
         });

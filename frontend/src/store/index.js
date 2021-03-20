@@ -9,11 +9,13 @@ export default new Vuex.Store({
       auth: {
           state: {
               token: sessionStorage.token ? JSON.parse(sessionStorage.getItem('token')) : null,
-              products: sessionStorage.products ? JSON.parse(sessionStorage.getItem('products')) : null
+              products: sessionStorage.products ? JSON.parse(sessionStorage.getItem('products')) : null,
+              historic: sessionStorage.historic ? JSON.parse(sessionStorage.getItem('historic')) : null,
           },
           getters: {
               token: state => state.token,
               products: state => state.products,
+              historic: state => state.historic,
               authenticated: state => state.token !== null,
           },
           mutations: {
@@ -33,7 +35,10 @@ export default new Vuex.Store({
               DROP_PRODUCT(state, product) {
                   let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
                   state.products.splice(objIndex, 1)
-              }
+              },
+              SET_HISTORIC(state, historic) {
+                  state.historic = historic;
+              },
           },
           actions: {
               async login({commit}, user) {
@@ -53,6 +58,12 @@ export default new Vuex.Store({
                 const  { data }  = await api.get('/products');
                 commit('SET_PRODUCTS', data)
                 sessionStorage.products = JSON.stringify(data);
+              },
+              async getHistory({ commit }, product) {
+                  api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
+                  const  { data }  = await api.get('/products/' + product.id + '/historic');
+                  commit('SET_HISTORIC', data)
+                  sessionStorage.historic = JSON.stringify(data);
               },
               async createProduct({ commit }, product) {
                   api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
