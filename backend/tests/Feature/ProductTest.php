@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\ProductController;
+use App\Models\Historic;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -103,6 +104,20 @@ class ProductTest extends TestCase
         $response->assertJson($data);
 
     }
+
+    public function test_should_list_historic()
+    {
+        $user = User::factory()->create();
+        $product = Product::factory(1)->create();
+        Historic::factory(5)->create(['product_id' => 1]);
+
+        $response = $this->actingAs($user)
+            ->get('/api/products/' . 1 . '/historic');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(5);
+    }
+
 
     private function getData(){
         return [
