@@ -68,15 +68,21 @@
         async saveProduct (product) {
             this.dialog = false
             try {
-                await this.$store.dispatch('createProduct', product);
+                //console.log(product)
+                if(product.id != '') {
+                    await this.$store.dispatch('updateProduct', product);
+                }else {
+                    await this.$store.dispatch('createProduct', product);
+                }
             } catch (error) {
                 this.error = error;
                 alert(error)
             }
 
           },
-          editItem (item) {
-            alert(item)
+          editItem (product) {
+            console.log(product)
+              this.currentProduct = product
               this.dialog = true
           },
           deleteItem (item) {

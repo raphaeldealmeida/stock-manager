@@ -24,7 +24,12 @@ export default new Vuex.Store({
                   state.products = products;
               },
               SET_PRODUCT(state, product) {
-                  state.products.unshift(product);
+                  if(product.id != ''){
+                      let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
+                      state.products[objIndex] = Object.assign({}, product)
+                  }else{
+                      state.products.unshift(product);
+                  }
               }
           },
           actions: {
@@ -51,7 +56,14 @@ export default new Vuex.Store({
                   const  { data }  = await api.post('/products', product);
                   commit('SET_PRODUCT', data)
                   sessionStorage.products = JSON.stringify(this.state.auth.products);
-              }
+              },
+              async updateProduct({ commit }, product) {
+                  api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
+                  const  { data }  = await api.put('/products/' + product.id, product);
+                  console.log(data)
+                  commit('SET_PRODUCT', data)
+                  sessionStorage.products = JSON.stringify(this.state.auth.products);
+              },
           }
       }
     }
