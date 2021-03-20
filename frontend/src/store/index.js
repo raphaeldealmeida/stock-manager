@@ -22,6 +22,9 @@ export default new Vuex.Store({
               },
               SET_PRODUCTS(state, products) {
                   state.products = products;
+              },
+              SET_PRODUCT(state, product) {
+                  state.products.unshift(product);
               }
           },
           actions: {
@@ -42,6 +45,12 @@ export default new Vuex.Store({
                 const  { data }  = await api.get('/products');
                 commit('SET_PRODUCTS', data)
                 sessionStorage.products = JSON.stringify(data);
+              },
+              async createProduct({ commit }, product) {
+                  api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
+                  const  { data }  = await api.post('/products', product);
+                  commit('SET_PRODUCT', data)
+                  sessionStorage.products = JSON.stringify(this.state.auth.products);
               }
           }
       }
