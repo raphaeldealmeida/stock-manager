@@ -16,6 +16,38 @@
                     </v-card-text>
                 </v-card>
             </v-dialog>
+            <v-dialog
+                v-model="confirm"
+                persistent
+                max-width="600px"
+            >
+                <v-card>
+                    <v-card-title>
+                        Are you sure you want to delete this product?
+                    </v-card-title>
+                    <v-card-text class="body-1">
+                        {{ currentProduct.name }}
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn
+                            class="mr-4 mb-1"
+                            color="primary"
+
+                            @click="confirm=false"
+                        >
+                            No
+                        </v-btn>
+                        <v-btn
+                            class="mr-4 mb-1"
+                            color="error"
+
+                            @click="deleteProduct"
+                        >
+                            Yeh
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
         </v-row>
         <v-card>
@@ -49,6 +81,7 @@
           error: false,
           products: [],
           dialog: false,
+            confirm: false,
             currentProduct: {
                 id: '',
                 name: '',
@@ -65,29 +98,36 @@
           }
         },
         methods: {
-        async saveProduct (product) {
-            this.dialog = false
-            try {
-                //console.log(product)
-                if(product.id != '') {
-                    await this.$store.dispatch('updateProduct', product);
-                }else {
-                    await this.$store.dispatch('createProduct', product);
+            async saveProduct (product) {
+                this.dialog = false
+                try {
+                    if(product.id != '') {
+                        await this.$store.dispatch('updateProduct', product);
+                    }else {
+                        await this.$store.dispatch('createProduct', product);
+                    }
+                } catch (error) {
+                    this.error = error;
+                    alert(error)
                 }
-            } catch (error) {
-                this.error = error;
-                alert(error)
-            }
-
-          },
-          editItem (product) {
-            console.log(product)
-              this.currentProduct = product
-              this.dialog = true
-          },
-          deleteItem (item) {
-            alert(item)
-          },
+              },
+            editItem (product) {
+                  this.currentProduct = product
+                  this.dialog = true
+              },
+            deleteItem (product) {
+                this.currentProduct = product
+                this.confirm = true
+            },
+            async deleteProduct () {
+                this.confirm = false
+                try {
+                    await this.$store.dispatch('deleteProduct', this.currentProduct);
+                } catch (error) {
+                    this.error = error;
+                    alert(error)
+                }
+            },
         },
     }
 </script>

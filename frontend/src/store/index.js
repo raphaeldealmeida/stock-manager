@@ -30,6 +30,10 @@ export default new Vuex.Store({
                   }else{
                       state.products.unshift(product);
                   }
+              },
+              DROP_PRODUCT(state, product) {
+                  let objIndex = state.products.findIndex((obj => obj.id == product.id ), product);
+                  state.products.splice(objIndex, 1)
               }
           },
           actions: {
@@ -62,6 +66,12 @@ export default new Vuex.Store({
                   const  { data }  = await api.put('/products/' + product.id, product);
                   console.log(data)
                   commit('SET_PRODUCT', data)
+                  sessionStorage.products = JSON.stringify(this.state.auth.products);
+              },
+              async deleteProduct({ commit }, product) {
+                  api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
+                  await api.delete('/products/' + product.id);
+                  commit('DROP_PRODUCT', product)
                   sessionStorage.products = JSON.stringify(this.state.auth.products);
               },
           }

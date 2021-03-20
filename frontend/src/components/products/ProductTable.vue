@@ -38,44 +38,6 @@
                     {text: 'Actions', value: 'actions', sortable: false},
                 ],
         }),
-        methods: {
-            // editItem (item) {
-            //     this.editedIndex = this.products.indexOf(item)
-            //     this.editedItem = Object.assign({}, item)
-            //     this.dialog = true
-            // },
-            // deleteItem (item) {
-            //     this.editedIndex = this.products.indexOf(item)
-            //     this.editedItem = Object.assign({}, item)
-            //     this.dialogDelete = true
-            // },
-            // deleteItemConfirm () {
-            //   this.products.splice(this.editedIndex, 1)
-            //   this.closeDelete()
-            // },
-            // close () {
-            //   this.dialog = false
-            //   this.$nextTick(() => {
-            //     this.editedItem = Object.assign({}, this.defaultItem)
-            //     this.editedIndex = -1
-            //   })
-            // },
-            // closeDelete () {
-            //   this.dialogDelete = false
-            //   this.$nextTick(() => {
-            //     this.editedItem = Object.assign({}, this.defaultItem)
-            //     this.editedIndex = -1
-            //   })
-            // },
-            // save () {
-            //   if (this.editedIndex > -1) {
-            //     Object.assign(this.products[this.editedIndex], this.editedItem)
-            //   } else {
-            //     this.products.push(this.editedItem)
-            //   }
-            //   this.close()
-            // },
-        }
     }
 </script>
 
