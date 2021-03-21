@@ -69,7 +69,7 @@
             >
                 <v-card>
                     <v-card-title>
-                        Are you sure you want to delete this product?
+                        Bulk product
                     </v-card-title>
                     <v-card-text class="body-1">
                         <v-file-input
@@ -79,6 +79,13 @@
                         ></v-file-input>
                     </v-card-text>
                     <v-card-actions>
+                        <v-btn
+                            class="ma-2"
+                            outlined
+                            href="products.csv"
+                            download>
+                            template spreadsheet
+                        </v-btn>
                         <v-btn
                             class="mr-4 mb-1"
                             color="primary"

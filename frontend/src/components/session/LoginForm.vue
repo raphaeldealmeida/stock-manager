@@ -2,10 +2,12 @@
   <v-container>
     <v-row>
       <v-col
-          md="6"
+          class="text-xs-center"
+          cols="6"
+          offset="3"
       >
         <v-card
-            class="d-flex justify-center mb-6"
+
         >
         <v-card-title>
           Login
