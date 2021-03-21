@@ -13,6 +13,7 @@
                     >
                         <v-text-field
                             v-model="product.name" label="Name" clearable
+                            name="name"
                             :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -21,6 +22,7 @@
                     >
                         <v-text-field
                             v-model="product.price" label="Price"
+                            name="price"
                             prefix="$" type="number"
                             :rules="[rules.required]"
                         ></v-text-field>
@@ -30,6 +32,7 @@
                     >
                         <v-text-field
                             type="number"  v-model="product.current_quantity"
+                            name="quantity"
                             label="Quantity" :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -50,7 +53,7 @@
                     text
                     @click="save"
                 >
-                    Salve
+                    Save
                 </v-btn>
             </v-card-actions>
         </v-card>
