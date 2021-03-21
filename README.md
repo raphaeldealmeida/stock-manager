@@ -15,6 +15,8 @@ Copy `.env.example` to `.env`,  fill database credentials and create it
 
 `php artisan migrate --seed`
 
+`php artisan test`
+
 `php artisan serve`
 
 Whether this works, http://localhost:8000 will say hello
@@ -26,8 +28,8 @@ Start on frontend folder
 
 `npm run serve`
 
-For run the tests e2e you need `php artisan serve` before. Each execution the database will be refreshed
+For run the tests e2e you need `php artisan serve` and `npm run serve` before. Each execution the database will be refreshed
 
-`cypress:chrome`
+`npm run cypress:chrome`
 
 Whether this works, http://localhost:8080 will show up.
