@@ -1,2 +1,4 @@
 .idea
 /frontend/cypress/videos
+/.docker/volumes
+/.docker/volumes/mysql/data
