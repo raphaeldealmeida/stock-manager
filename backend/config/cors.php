@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*', '/api/products/bulk'],
 
     'allowed_origins_patterns' => [],
 

@@ -62,6 +62,42 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            <v-dialog
+                v-model="dialogBulk"
+                persistent
+                max-width="600px"
+            >
+                <v-card>
+                    <v-card-title>
+                        Are you sure you want to delete this product?
+                    </v-card-title>
+                    <v-card-text class="body-1">
+                        <v-file-input
+                            v-model="file"
+                            accept=".csv, text/csv"
+                            label="File input"
+                        ></v-file-input>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn
+                            class="mr-4 mb-1"
+                            color="primary"
+
+                            @click="dialogBulk=false"
+                        >
+                            No
+                        </v-btn>
+                        <v-btn
+                            class="mr-4 mb-1"
+                            color="error"
+
+                            @click="bulkProduct"
+                        >
+                            Send
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-row>
         <v-card>
             <v-card-title>
@@ -70,11 +106,19 @@
             <v-card-text>
                 <v-row justify="end">
                     <v-btn
+                        data-cy="btn-product-create"
                         class="mr-4 mb-1"
                         color="primary"
                         @click="dialog=true"
                     >
                         New Product
+                    </v-btn>
+                    <v-btn
+                        class="mr-4 mb-1"
+                        success
+                        @click="dialogBulk=true"
+                    >
+                        Bulk
                     </v-btn>
                 </v-row>
               <p v-if="error" style="color: red">{{ error }}</p>
@@ -97,7 +141,9 @@
             products: [],
             dialog: false,
             dialogShow:false,
+            dialogBulk:false,
             confirm: false,
+            file: null,
             quantityHistory: [],
             currentProduct: {
                 id: '',
@@ -120,6 +166,17 @@
                 this.clearCurrentProduct();
                 this.clearHistory();
                 this.dialogShow = false
+            },
+            async bulkProduct() {
+                if(this.file == null) return;
+                try {
+                    await this.$store.dispatch('bulkProduct', this.file);
+                    // this.quantityHistory = this.$store.getters.historic;
+                    // this.currentProduct = product
+                } catch (error) {
+                    this.error = error;
+                }
+                this.dialogBulk = false
             },
             async showItem(product) {
                 try {

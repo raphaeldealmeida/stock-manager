@@ -84,6 +84,18 @@ export default new Vuex.Store({
                   commit('DROP_PRODUCT', product)
                   sessionStorage.products = JSON.stringify(this.state.auth.products);
               },
+              async bulkProduct({ commit }, file) {
+                  commit
+
+                  let formData = new FormData();
+                  formData.append('filename', file);
+
+                  api.defaults.headers.common['Authorization'] = 'Bearer ' + this.state.auth.token
+                  await api.post('/products/bulk', formData,{
+                      headers: {'Content-Type': 'multipart/form-data'}
+                      });
+                  await this.dispatch('getProducts');
+              },
           }
       }
     }

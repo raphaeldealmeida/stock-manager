@@ -60,7 +60,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    data-cy="btn-save"
+                    data-cy="btn-product-save"
                     @click="save"
                 >
                     Save
