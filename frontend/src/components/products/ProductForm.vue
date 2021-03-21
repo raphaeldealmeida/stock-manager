@@ -9,11 +9,20 @@
                 >
                     <v-row justify="center">
                     <v-col
-                        cols="12"
+                        cols="6"
+                    >
+                        <v-text-field
+                            v-model="product.code" label="Code" clearable
+                            data-cy="code"
+                            :rules="[rules.required]"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="6"
                     >
                         <v-text-field
                             v-model="product.name" label="Name" clearable
-                            name="name"
+                            data-cy="name"
                             :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -22,7 +31,7 @@
                     >
                         <v-text-field
                             v-model="product.price" label="Price"
-                            name="price"
+                            data-cy="price"
                             prefix="$" type="number"
                             :rules="[rules.required]"
                         ></v-text-field>
@@ -32,7 +41,7 @@
                     >
                         <v-text-field
                             type="number"  v-model="product.current_quantity"
-                            name="quantity"
+                            data-cy="quantity"
                             label="Quantity" :rules="[rules.required]"
                         ></v-text-field>
                     </v-col>
@@ -51,6 +60,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
+                    data-cy="btn-save"
                     @click="save"
                 >
                     Save

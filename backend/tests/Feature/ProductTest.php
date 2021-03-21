@@ -121,6 +121,7 @@ class ProductTest extends TestCase
 
     private function getData(){
         return [
+            'code' => $this->faker->bothify('###???'),
             'name' => $this->faker->sentence(3, true),
             'price' => $this->faker->randomFloat(2, 1.00,   1000.00),
             'current_quantity' => $this->faker->numberBetween(0, 100),

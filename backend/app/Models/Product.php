@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'current_quantity',
+        'code','name', 'price', 'current_quantity',
     ];
 
     public function historics()

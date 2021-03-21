@@ -101,6 +101,7 @@
             quantityHistory: [],
             currentProduct: {
                 id: '',
+                code: '',
                 name: '',
                 price: '',
                 current_quantity: '',
@@ -160,7 +161,7 @@
                 }
             },
             clearCurrentProduct () {
-              this.currentProduct = { id: '',name: '',price: '',current_quantity: '',}
+              this.currentProduct = { id: '', code: '', name: '',price: '',current_quantity: '',}
             },
             clearHistory () {
               this.quantityHistory = [];

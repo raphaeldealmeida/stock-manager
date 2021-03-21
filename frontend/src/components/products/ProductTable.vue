@@ -36,7 +36,7 @@
         },
         data: () => ({
                 headers: [
-                    {text: 'ID', value: 'id'},
+                    {text: 'Code', value: 'code'},
                     {text: 'Name', value: 'name', align: 'start'},
                     {text: 'Price (U$)', value: 'price'},
                     {text: 'Quantity (UN)', value: 'current_quantity'},

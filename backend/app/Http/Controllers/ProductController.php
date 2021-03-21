@@ -29,8 +29,7 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request, Product $product)
     {
-        $product->fill($request->only(['name', 'price', 'current_quantity']));
-        $product->uuid = Str::uuid();
+        $product->fill($request->only(['code', 'name', 'price', 'current_quantity']));
         $product->save();
 
         return response()
@@ -58,7 +57,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $data = $request->only(['name', 'price', 'current_quantity']);
+        $data = $request->only(['code', 'name', 'price', 'current_quantity']);
         if ($data['current_quantity'] != $product->current_quantity){
             Historic::create([
                 'product_id' => $product->id,

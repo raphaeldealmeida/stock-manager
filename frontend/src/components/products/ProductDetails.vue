@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>{{ product.name }}</v-card-title>
+      <v-card-title>{{ product.code }} - {{ product.name }}</v-card-title>
       <v-row>
         <v-col>
           Price: {{ product.price }}
