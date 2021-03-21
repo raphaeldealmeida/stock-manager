@@ -178,8 +178,9 @@
                 if(this.file == null) return;
                 try {
                     await this.$store.dispatch('bulkProduct', this.file);
-                    // this.quantityHistory = this.$store.getters.historic;
-                    // this.currentProduct = product
+                    await this.$store.dispatch('getProducts');
+                    this.products  = this.$store.getters.products;
+                    this.file = null
                 } catch (error) {
                     this.error = error;
                 }

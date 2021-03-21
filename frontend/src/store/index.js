@@ -94,7 +94,6 @@ export default new Vuex.Store({
                   await api.post('/products/bulk', formData,{
                       headers: {'Content-Type': 'multipart/form-data'}
                       });
-                  await this.dispatch('getProducts');
               },
           }
       }
